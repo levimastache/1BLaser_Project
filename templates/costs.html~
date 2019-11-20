@@ -1,0 +1,6 @@
+{% extends "neo__serve_csv.html" %}			  
+{% block content_B %}				  
+
+"costs__{{today_date}}.txt"
+
+{% endblock content_B %}
