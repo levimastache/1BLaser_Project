@@ -1,8 +1,0 @@
-{% extends "serve_csv.html" %}			  
-{% block content %}				  
-
-<!-- INSERT VARIABLE {{today_date}} -->						  
-<p>datalog__11_16_2019.txt</p>  
-    <!-- ROOM FOR EXPANSION (multichannel mcp) -->
-						  
-{% endblock content %}				  

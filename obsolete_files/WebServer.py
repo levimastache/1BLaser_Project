@@ -23,7 +23,7 @@ class WebServer:
     app = Flask(__name__, root_path='/',
                           static_url_path='',
                           static_folder='/mnt/usb_static',
-                          template_folder='/home/pi/1BLaser/templates')
+                          template_folder='/home/pi/1BLaser/obsolete_files/templates')
 
     @app.route('/')
     def hello():
