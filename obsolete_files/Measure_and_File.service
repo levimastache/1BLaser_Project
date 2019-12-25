@@ -1,0 +1,16 @@
+#This file is located in /etc/systemd/system/
+
+[Unit]
+Description=My service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -u Measure_and_File.py
+WorkingDirectory=/home/pi/1BLaser
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
