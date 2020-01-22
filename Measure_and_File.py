@@ -89,11 +89,11 @@ def is_ez_sleeping():	#FUNCTION DOESN'T WORK AT THE MOMENT AND WON'T BE A FEATUR
     else:
       pass
 
-def file_cleanup():	#Function erases files older than 7 days
+def file_cleanup():	#Function erases files older than 30 days
   path = "/mnt/usb_static"
   for f in os.listdir(path):
     f = os.path.join(path, f)
-    if os.stat(f).st_mtime < (time.time() - 7 *24*60*60):
+    if os.stat(f).st_mtime < (time.time() - 30 *24*60*60):
       if os.path.isfile(f):
         os.remove(f)
 
@@ -114,16 +114,16 @@ def update_datalog_file():	#Function uploads the present current readings to the
 def update_cost_file(JetNum, Start_time, Stop_time, Cost, Total):	#Function uploads cost amount and other pertinent data into costs file
   filename = "/mnt/usb_static/costs__"+today+".txt"
   with open(filename, "a", newline='') as costs_file:
-    costs_file.write( str(JetNum)+'\t'+Start_time+'\t'+Stop_time+'\t'+str( round(Cost,2) )+'\t'+str( round(Total,2) )+'\n' )
+    costs_file.write( str(JetNum)+'\t'+Start_time+'\t'+Stop_time+'\t'+str(Cost)+'\t'+str(Total)+'\n' )
     return None
 
 def lcd_show_cost(JetNum, Cost): #Function displays most recent cost-of-use to the relevant LCD screen
   if JetNum == 0:
     lcd0.clear()
-    lcd0.message = "You owe:\n       $"+str( round(Cost, 2) )
+    lcd0.message = "You owe:\n       $"+str(Cost)
   else:
     lcd1.clear()
-    lcd1.message = "You owe:\n       $"+str( round(Cost, 2) )
+    lcd1.message = "You owe:\n       $"+str(Cost)
 
 def png_this(fname):	#Function plots values in data file and stores it in a .png file
   with open(fname, newline='') as data_file:
@@ -197,7 +197,7 @@ def measure_and_file():	#This is the main function.
       #  a new .png plot is generated from the data, and all files are sent to the cloud.
       # After which, the state and summed values reset.
       if measurement_0 > thresh:
-        area_0 = ( (last_measurement_0 + measurement_0)/2 )*1 - 0.8*1
+        area_0 = ( (last_measurement_0 + measurement_0)/2 )*1 #- 0.8*1
         area_total_0 += area_0
         last_time_tol_0 = time.time()
         if STATE_0 == 'idling':
@@ -208,7 +208,7 @@ def measure_and_file():	#This is the main function.
         current_area = area_total_0 * 2
         E_total = (current_area * 208)
         kWh_total = E_total / (60*60)
-        cost = .0834 * kWh_total * 100 #$/kWh and $Arbitrary
+        cost = round(kWh_total*0.0834*0.3567) #$/kWh and $Arbitrary
         #print ( "0: " + str(cost) )
         cost_total += cost
         stop_time = datetime.datetime.today().strftime('%H:%M:%S')
@@ -221,7 +221,7 @@ def measure_and_file():	#This is the main function.
         area_total_0 = 0.00
       last_measurement_0 = measurement_0
       if measurement_1 > thresh:
-        area_1 = ( (last_measurement_1 + measurement_1)/2 )*1 - 0.8*1
+        area_1 = ( (last_measurement_1 + measurement_1)/2 )*1 #- 0.8*1
         area_total_1 += area_1
         last_time_tol_1 = time.time()
         if STATE_1 == 'idling':
@@ -232,7 +232,7 @@ def measure_and_file():	#This is the main function.
         current_area = area_total_1 * 2
         E_total = (current_area * 208)
         kWh_total = E_total / (60*60)
-        cost = .0834 * kWh_total * 100 #$/kWh and $Arbitrary
+        cost = round(kWh_total*0.0834**0.3567) #$/kWh and $Arbitrary
         #print ( "1: " + str(cost) )
         cost_total += cost
         stop_time = datetime.datetime.today().strftime('%H:%M:%S')
