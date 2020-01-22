@@ -72,7 +72,7 @@ def make_files():	#Function makes and writes the headers for the data and cost f
     data_txt.write("current_0\tcurrent_1\ttime\n") # - sudo permission needed to manipulate USB dir
   with open("/mnt/usb_static/costs__"+today+".txt", "w", newline='') as costs_txt:
     costs_txt.write("jet_num\tstart_time\tstop_time\tcost\ttotal\n")
-
+'''
 def is_ez_sleeping():	#FUNCTION DOESN'T WORK AT THE MOMENT AND WON'T BE A FEATURE OF THE FINAL PRODUCT ANYWAY
   STATE_USB = 'mounted'
   while(True):
@@ -88,7 +88,7 @@ def is_ez_sleeping():	#FUNCTION DOESN'T WORK AT THE MOMENT AND WON'T BE A FEATUR
       break
     else:
       pass
-
+'''
 def file_cleanup():	#Function erases files older than 30 days
   path = "/mnt/usb_static"
   for f in os.listdir(path):
@@ -178,7 +178,7 @@ def measure_and_file():	#This is the main function.
 
   while(True):
     #is_ez_sleeping()
-    if sleep_pin.value == False:	#If pin is pulled, ready to die. (extract USB, power-off, jack-in USB, power-on)
+    if sleep_pin.value == False:	#If pin is pulled, ready to die. (power-off, extract USB, jack-in USB, power-on)
       continue
 
     elif last_day == today and time.time() - last_time_txt > 1: #If today is the same day as since the day the program started, and the timer reaches 1 second:
