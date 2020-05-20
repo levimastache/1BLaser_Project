@@ -205,10 +205,10 @@ def measure_and_file():	#This is the main function.
           led_0.value = True
           STATE_0 = 'cutting'
       if measurement_0 < thresh and STATE_0 == 'cutting' and time.time() - last_time_tol_0 > 3:
-        current_area = area_total_0 * 2
+        current_area = area_total_0*2
         E_total = (current_area * 208)
         kWh_total = E_total / (60*60)
-        cost = round(kWh_total*0.0834*0.3567) #$/kWh and $Arbitrary
+        cost = round(kWh_total*0.0834*0.46117) #$/kWh and fudge number for $2/3min
         #print ( "0: " + str(cost) )
         cost_total += cost
         stop_time = datetime.datetime.today().strftime('%H:%M:%S')
@@ -229,10 +229,10 @@ def measure_and_file():	#This is the main function.
           led_1.value = True
           STATE_1 = 'cutting'
       if measurement_1 < thresh and STATE_1 == 'cutting' and time.time() - last_time_tol_1 > 3:
-        current_area = area_total_1 * 2
+        current_area = area_total_1*2 #voltage is 0-5, but current is 0-10
         E_total = (current_area * 208)
         kWh_total = E_total / (60*60)
-        cost = round(kWh_total*0.0834**0.3567) #$/kWh and $Arbitrary
+        cost = round(kWh_total*0.0834*0.46117) #$/kWh and fudge number for $2/3min
         #print ( "1: " + str(cost) )
         cost_total += cost
         stop_time = datetime.datetime.today().strftime('%H:%M:%S')
